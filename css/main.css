@@ -1,0 +1,84 @@
+/*!
+ *
+ * Copyright 2012 cranelee@gmail.com
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ */
+body {
+	padding-top: 0px;
+	padding-bottom: 40px;
+}
+
+.customer { //
+	text-align: center;
+	background-color: #fff;
+}
+
+#header { //
+	width: 1024px;
+}
+
+#header .l_box {
+	float: left;
+	width:820px;
+	background: url(../img/readyfortakeoff.jpg) no-repeat left 0;
+	padding: 10px 0 0 2px;
+	margin:0 40px 0 40px;
+	text-align: left;
+}
+
+#body{
+	background: url(../img/background.jpg) repeat-y center top;
+	width:auto;
+}
+#div_box{
+	background:rgba(247,247,247,0.8);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ccf7f7f7,endColorstr=#ccf7f7f7);zoom:1;
+}
+:root #div_box{filter:none\9;}/*for IE9*/
+#header .l_box .a1 {
+	color: #000;
+}
+
+#header .l_box .a2 {
+	margin-top: 20px;
+	color: #fff;
+}
+
+.cl {
+	clear: both;
+	height: 0;
+	overflow: hidden;
+}
+
+.navbar .nav>li {
+	line-height: 23px;
+}
+
+.nav>.active>a:focus {
+	background-color: #2DACE3;
+}
+span.required {color:red;}
+.sidenav.affix {
+top: 30px;
+}
+.date-list>li{
+	list-style:none;
+	min-width:240px;
+}
+.editor {max-height: 250px;
+height: 250px;
+background-color: white;
+border-collapse: separate;
+border: 1px solid rgb(204, 204, 204);
+padding: 4px;
+box-sizing: content-box;
+-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;
+border-top-left-radius: 3px;
+overflow: scroll;
+outline: none;}
+.map-container img { max-width: none; }
