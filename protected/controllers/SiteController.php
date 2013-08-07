@@ -114,6 +114,9 @@ class SiteController extends Controller
 		$this->render('information');
 	}
 	public function actionIntro(){
+		if(Yii::app()->user->isGuest){
+			$this->redirect(array('/login'));
+		}
 		$this->render('intro');
 	}
 }
