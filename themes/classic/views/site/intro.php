@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="span12" style="text-align:center">
 		<h1>Registration <br/>M&S IT Away Day</h1>
-		<div><b>Data</b></div>
-		<div>1<sup>st</sup>October 2013</div>
+		<h2><b>Date</b></h2>
+		<div>1<sup>st</sup> October 2013</div>
 		<h2>Venue</h2>
 		<p>Central Hall Westminster<br/>
 		Storey's Gate<br/>
@@ -48,14 +48,14 @@
 				<td>17:00 – 18:30</td>
 			</tr>
 		</table>
-		<?php echo CHtml::link('Next',array('user/information'),array('class'=>'btn btn-success','style'=>'margin:20px;'));?>
+		<?php echo CHtml::link('Next',array('user/information'),array('class'=>'btn btn-large btn-success','style'=>'margin:20px;'));?>
 	</div>
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
 $(function() {
 	var map;
-	var latlng = new google.maps.LatLng(51.500246,-0.129924);
+	var latlng = new google.maps.LatLng(51.499947,-0.129693);
 	function initialize() {
 		
 		var mapOptions = {
@@ -68,13 +68,16 @@ $(function() {
 		var marker = new google.maps.Marker
 		(
 		    {
-		        position: new google.maps.LatLng(51.500246,-0.129924),
+		        position: latlng,
 		        map: map,
 		        title: 'Click me'
 		    }
 		);
 		var infowindow = new google.maps.InfoWindow({
-	        content: 'City of Westminster, London SW1H 9NH'
+	        content: 'Central Hall Westminster<br/>
+		        		 Storey\'s Gate<br/>
+		        		  Westminster<br/>
+		        		   London SW1H 9NH'
 	    });
 		google.maps.event.addListener(marker, 'click', function () {
 	        // Calling the open method of the infoWindow 

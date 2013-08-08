@@ -133,12 +133,10 @@
 	</div>
 	<div class="row">
 		<div class="span12" style="text-align:center;">
-				<button type="submit"  class="btn btn-success">Save & Proceed</button>
+				<button type="submit"  class="btn btn-large btn-success">Save & Proceed</button>
 		</div>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div>
-
-
 </div><!-- form -->

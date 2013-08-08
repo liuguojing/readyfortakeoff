@@ -254,7 +254,7 @@ class UserController extends Controller
 					if($nom1->save() && $nom2->save() && $nom3->save() && $nom4->save() && $nom5->save() && $nom6->save() && $nom7->save())
 						$this->redirect(array('review'));
 				}else {
-					$model->addError('type', 'All The Nominate Must Fllow The Autocomple.');
+					$model->addError('type', 'All the Nominate must in the nomination list.');
 				}
 			}
 		}

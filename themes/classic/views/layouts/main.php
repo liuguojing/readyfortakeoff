@@ -38,9 +38,14 @@
 	</div>
 	<div id="body"  style="padding:40px;">
 		<div id="div_box">
-		<div class="container">
-			<?php echo $content;?>
-		</div>
+			<div class="container">
+				<?php echo $content;?>
+				<div class="row">
+					<div class="span12">
+						<p>None of this information is going to be shared outside M&S</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
   </body>
