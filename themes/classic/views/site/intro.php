@@ -74,10 +74,7 @@ $(function() {
 		    }
 		);
 		var infowindow = new google.maps.InfoWindow({
-	        content: 'Central Hall Westminster<br/>
-		        		 Storey\'s Gate<br/>
-		        		  Westminster<br/>
-		        		   London SW1H 9NH'
+	        content: 'Central Hall Westminster,Storey\'s Gate<br/>Westminster,London SW1H 9NH'
 	    });
 		google.maps.event.addListener(marker, 'click', function () {
 	        // Calling the open method of the infoWindow 
