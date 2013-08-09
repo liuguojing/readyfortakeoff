@@ -341,6 +341,7 @@ class UserController extends Controller
 	public function actionConfirmation(){
 		//send mail
 		$model = $this->loadModel(Yii::app()->user->id);
+		Yii::app()->user->logout();
 		$this->render('confirmation',
 				array('model'=>$model)
 		);
