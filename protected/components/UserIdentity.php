@@ -22,21 +22,17 @@ class UserIdentity extends CUserIdentity
  		if ($user === null) {
  			$this->errorCode = self::ERROR_USERNAME_INVALID;
  		} else {
- 			if ($user->status != 0) {
- 				$this->errorCode = 101;
- 			} else{
- 				$this->_id = $user->id;
- 				$this->setState('isUser' , 1); 	
- 				$this->setState('isAdmin' , 0);
- 				$this->setState('type1',1);
- 				$cookie = new CHttpCookie('id',$user->id);
- 				$cookie->expire = time()+60*60*24*30;  //有限期30天
- 				Yii::app()->request->cookies['id']=$cookie;
+ 			$this->_id = $user->id;
+ 			$this->setState('isUser' , 1);
+ 			$this->setState('isAdmin' , 0);
+ 			$this->setState('type1',1);
+ 			$cookie = new CHttpCookie('id',$user->id);
+ 			$cookie->expire = time()+60*60*24*30;  //有限期30天
+ 			Yii::app()->request->cookies['id']=$cookie;
  				
- 				$this->setState('email', $user->email);
- 				$this->setState('status', $user->status);
- 				$this->errorCode = self::ERROR_NONE;
- 			}
+ 			$this->setState('email', $user->email);
+ 			$this->setState('status', $user->status);
+ 			$this->errorCode = self::ERROR_NONE;
  		}
 		return !$this->errorCode;
 	}

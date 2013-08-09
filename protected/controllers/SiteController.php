@@ -94,6 +94,7 @@ class SiteController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
 				if(Yii::app()->user->status == 1){
+					Yii::app()->user->logout();
 					$this->redirect(array('site/page','view'=>'already_registered'));
 				}else{
 					$this->redirect(Yii::app()->user->returnUrl);
