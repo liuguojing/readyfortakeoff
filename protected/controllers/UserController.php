@@ -171,7 +171,12 @@ class UserController extends Controller
 		$model = $this->loadModel(Yii::app()->user->id);
 		if(isset($_POST['User']))
 		{
-			$model->setScenario('information');
+			
+			if($_POST['User']['office']=='Merchant Square, Waterside, Stockley Park'){
+				$model->setScenario('information');
+			}else{
+				$model->setScenario('information_notime');
+			}
 			$model->attributes=$_POST['User'];
 			if($model->save())
 				$this->redirect(array('survey'));

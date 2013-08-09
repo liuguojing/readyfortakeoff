@@ -59,8 +59,10 @@
 			<div class="control-group <?php if($model->getError('personal_or_business_number')){ echo 'error';}?>">
 				<label class="control-label" for="User_personal_or_business_number"><?php echo $model->getAttributeLabel('personal_or_business_number')?>:<span class="required">*</span></label>
 				<div class="controls">
-					<?php echo $form->textField($model,'personal_or_business_number',array('placeholder'=>$model->getAttributeLabel('personal_or_business_number'))); ?>
+					<?php echo $form->radioButtonList($model,'personal_or_business_number',array('Personal Number'=>'Personal Number','Business Number'=>'Business Number'),array('separator' => '', 'template' => '<li class="q6" style="list-style: none outside none;display:block;float:left;margin:10px;">{input} {label} </li>&nbsp;&nbsp;', 'labelOptions' => array('style' => 'display:inline;'))); ?>
 					<?php if($model->getError('personal_or_business_number')){?><span class="help-inline"><?php echo $model->getError('personal_or_business_number')?></span><?php }?>
+				</div>
+				<div style="clear:both;">
 				</div>
 			</div>
 			<div class="control-group <?php if($model->getError('emergency_contact_name')){ echo 'error';}?>">
@@ -120,7 +122,7 @@
 				</div>
 			</div>
 			
-			<div class="control-group <?php if($model->getError('outbound_time')){ echo 'error';}?> <?php if($model->getError('return_time')){ echo 'error';}?>">
+			<div id="time" class="control-group <?php if(!$model->office=='Merchant Square, Waterside, Stockley Park'){echo 'hide';}?> <?php if($model->getError('outbound_time')){ echo 'error';}?> <?php if($model->getError('return_time')){ echo 'error';}?>">
 				<label class="control-label" for="User_outbound_time"><?php echo $model->getAttributeLabel('outbound_time')?>:<span class="required">*</span></label>
 				<div class="controls">
 					<?php echo $form->dropDownList($model,'outbound_time',$model->outboundTimeOptions(),array('empty'=>'')); ?>
@@ -145,3 +147,25 @@
 		<p>None of this information is going to be shared outside M&S</p>
 	</div>
 </div>
+<script>
+function showTime(){
+	if($('#User_office').val() == 'Merchant Square, Waterside, Stockley Park'){
+		$('#time').show();
+	}else{
+		$('#time').hide();
+		$('#User_outbound_time').val('');
+		$('#User_return_time').val('');
+	}
+}
+$(function() {
+	$('#User_office').change(function(){
+			if($('#User_office').val() == 'Merchant Square, Waterside, Stockley Park'){
+				$('#time').show();
+			}else{
+				$('#time').hide();
+				$('#User_outbound_time').val('');
+				$('#User_return_time').val('');
+			}
+		});
+});
+</script>

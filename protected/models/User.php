@@ -66,6 +66,7 @@ class User extends TrackStarActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('id, status, name, display_name, job_title, department, employee_number, telephone, mobile_telephone, personal_or_business_number, emergency_contact_name, emergency_contact_telephone_number, email, twitter_account, special_requirements, specific_medical_conditions, office, outbound_time, return_time, do_question, donot_question, develop_question, created_at, created_by, updated_at, updated_by', 'safe', 'on'=>'search'),
 			array('display_name, job_title, department, employee_number, telephone, mobile_telephone, personal_or_business_number, emergency_contact_name, emergency_contact_telephone_number, email, twitter_account, office, outbound_time, return_time' ,'required','on'=>'information'),
+			array('display_name, job_title, department, employee_number, telephone, mobile_telephone, personal_or_business_number, emergency_contact_name, emergency_contact_telephone_number, email, twitter_account, office' ,'required','on'=>'information_notime'),
 			array('do_question, donot_question, develop_question','required','on'=>'survey'),
 			array('id, status, name, display_name, job_title, department, employee_number, telephone, mobile_telephone, personal_or_business_number, emergency_contact_name, emergency_contact_telephone_number, email, twitter_account, special_requirements, specific_medical_conditions, office, outbound_time, return_time, do_question, donot_question, develop_question', 'required', 'on'=>'search'),
 		);
