@@ -34,6 +34,7 @@ class UserIdentity extends CUserIdentity
  				Yii::app()->request->cookies['id']=$cookie;
  				
  				$this->setState('email', $user->email);
+ 				$this->setState('status', $user->status);
  				$this->errorCode = self::ERROR_NONE;
  			}
  		}

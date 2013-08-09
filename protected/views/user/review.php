@@ -38,7 +38,7 @@
 		
 		<table class="table  table-bordered table-hover table-condensed">
 			<caption style="text-align:center;">
-				<h3><?php echo CHtml::link('Edit Nominate',array('user/nominate'))?></h3>
+				<h3><?php echo CHtml::link('Edit Nomination',array('user/nominate'))?></h3>
 			</caption>
 			<?php foreach($nominates as $nominate){?>
 			<tr>
@@ -48,5 +48,10 @@
 			<?php }?>
 		</table>
 <?php $this->endWidget(); ?>
+	</div>
+</div>
+<div class="row">
+	<div class="span12" style="margin-top:40px;font-size:10px;color:#555;">
+		<p><i>None of this information is going to be shared outside M&S</i></p>
 	</div>
 </div>

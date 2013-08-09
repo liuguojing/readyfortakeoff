@@ -140,3 +140,8 @@
 <?php $this->endWidget(); ?>
 </div>
 </div><!-- form -->
+<div class="row">
+	<div class="span12" style="margin-top:40px;font-size:10px;color:#555;">
+		<p>None of this information is going to be shared outside M&S</p>
+	</div>
+</div>

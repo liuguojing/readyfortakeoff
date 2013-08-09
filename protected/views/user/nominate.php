@@ -82,7 +82,11 @@
 	</div>
 
 </div>
-
+<div class="row">
+	<div class="span12" style="margin-top:40px;font-size:10px;color:#555;">
+		<p><i>None of this information is going to be shared outside M&S</i></p>
+	</div>
+</div>
 
 
 
