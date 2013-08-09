@@ -205,7 +205,7 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->setScenario('review');
-			$model->attributes=$_POST['User'];
+			$model->status = 1;
 			if($model->save())
 				$this->redirect(array('confirmation'));
 		}
@@ -223,7 +223,49 @@ class UserController extends Controller
 		if(isset($_POST['Nomination']))
 		{
 			$model->attributes=$_POST['Nomination'];
-			if($model->save())
+			if(!empty($model->quality)){
+				$quality_user = User::model()->findByAttributes(array('name'=>$model->quality));
+				if($quality_user === null){
+					$model->addError('quality', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if(!empty($model->value)){
+				$value_user = User::model()->findByAttributes(array('name'=>$model->value));
+				if($value_user === null){
+					$model->addError('value', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if(!empty($model->innovation)){
+				$innovation_user = User::model()->findByAttributes(array('name'=>$model->innovation));
+				if($innovation_user === null){
+					$model->addError('innovation', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if(!empty($model->trust)){
+				$trust_user = User::model()->findByAttributes(array('name'=>$model->trust));
+				if($trust_user === null){
+					$model->addError('trust', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if(!empty($model->service)){
+				$service_user = User::model()->findByAttributes(array('name'=>$model->service));
+				if($service_user === null){
+					$model->addError('service', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if(!empty($model->team)){
+				$team_user = User::model()->findByAttributes(array('name'=>$model->team));
+				if($team_user === null){
+					$model->addError('team', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if(!empty($model->itlt_award)){
+				$itlt_award_user = User::model()->findByAttributes(array('name'=>$model->itlt_award));
+				if($itlt_award_user === null){
+					$model->addError('itlt_award', 'All the Nominate must in the nomination list.');
+				}
+			}
+			if( count($model->getErrors())==0 && $model->save())
 				$this->redirect(array('review'));
 		}
 		$user_names = '';
