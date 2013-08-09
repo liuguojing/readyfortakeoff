@@ -33,7 +33,7 @@ class UserController extends Controller
 				'expression' => '$user->isAdmin',
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('information','survey','review','vote','nominate','vote','confirmation'),
+				'actions'=>array('information','survey','review','vote','nomination','vote','confirmation'),
 				'users'=>array('@'),
 				'expression' => '$user->isUser',
 			),
@@ -193,7 +193,7 @@ class UserController extends Controller
 			$model->setScenario('survey');
 			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('nominate'));
+				$this->redirect(array('nomination'));
 		}
 	
 		$this->render('survey',array(
@@ -209,19 +209,41 @@ class UserController extends Controller
 			if($model->save())
 				$this->redirect(array('confirmation'));
 		}
-		$criteria = new CDbCriteria;
-		$criteria->with = 'user';
-		$criteria->order = 'type asc';
-		$criteria->condition = 't.created_by = :created_by';
-		$criteria->params = array(':created_by'=>Yii::app()->user->id);
-		$nominates = Nominate::model()->findAll($criteria);
 		$this->render('review',array(
 				'model'=>$model,
-				'nominates'=>$nominates,
+		));
+	}
+	
+	public function actionNomination(){
+		$model = Nomination::model()->findByAttributes(array('user_id'=>Yii::app()->user->id));
+		if($model === null){
+			$model = new Nomination();
+			$model->user_id = Yii::app()->user->id;
+		}
+		if(isset($_POST['Nomination']))
+		{
+			$model->attributes=$_POST['Nomination'];
+			if($model->save())
+				$this->redirect(array('review'));
+		}
+		$user_names = '';
+		$criteria = new CDbCriteria;
+		$criteria->select = 'name';
+		$criteria->condition = 'id <> :id';
+		$criteria->params = array(':id'=>Yii::app()->user->id);
+		$users = User::model()->findAll($criteria);
+		foreach($users as $user){
+			$user_names .= '"' . $user->name . '",';
+		}
+		$this->render('nomination',array(
+				'model'=>$model,
+				'user_names'=>$user_names
 		));
 	}
 	
 	public function actionNominate(){
+		$this->redirect(array('nomination'));
+		Yii::app()->end();
 		$model = new Nominate;
 		$nominates = Nominate::model()->with('user')->findAllByAttributes(array('created_by'=>Yii::app()->user->id));
 		$nominate_array = array();

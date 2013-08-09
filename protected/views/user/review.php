@@ -35,17 +35,43 @@
 			</tr>
 			<?php }?>
 		</table>
-		
+		<?php if(!isset($model->nomination)){
+			$model->nomination = new Nomination;
+		}
+		?>
 		<table class="table  table-bordered table-hover table-condensed">
 			<caption style="text-align:center;">
-				<h3><?php echo CHtml::link('Edit Nomination',array('user/nominate'))?></h3>
+				<h3><?php echo CHtml::link('Edit Nomination',array('user/nomination'))?></h3>
 			</caption>
-			<?php foreach($nominates as $nominate){?>
 			<tr>
-				<td style="width:40%"><?php echo $nominate->getTypeText();?></td>
-				<td><?php echo $nominate->user->name;?></td>
+				<td style="width:40%">Quality</td>
+				<td><?php echo $model->nomination->quality;?></td>
 			</tr>
-			<?php }?>
+			<tr>
+				<td style="width:40%">Value</td>
+				<td><?php echo $model->nomination->value;?></td>
+			</tr>
+			<tr>
+				<td style="width:40%">Innovation</td>
+				<td><?php echo $model->nomination->innovation;?></td>
+			</tr>
+			<tr>
+				<td style="width:40%">Trust</td>
+				<td><?php echo $model->nomination->trust;?></td>
+			</tr>
+			<tr>
+				<td style="width:40%">Service</td>
+				<td><?php echo $model->nomination->service;?></td>
+			</tr>
+			<tr>
+				<td style="width:40%">Team</td>
+				<td><?php echo $model->nomination->team;?></td>
+			</tr>
+			<tr>
+				<td style="width:40%">Itlt Award</td>
+				<td><?php echo $model->nomination->itlt_award;?></td>
+			</tr>
+			
 		</table>
 <?php $this->endWidget(); ?>
 	</div>
