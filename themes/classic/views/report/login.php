@@ -27,21 +27,12 @@
 </head>
   <body>
 	<header class="jumbotron subhead customer" id="overview">
+	<div class="jumbotron subhead customer" id="overview">
 		<div id="header">
-			<div class="l_box">
-				<div class="a1"></div>
-				<div class="a2">
-					
-				</div>
-			</div>
-		
-		<div class="cl"></div>
-			<div>
-				<ul class="nav">
-				<li></li>
-				</ul>
-			</div>
+		    <?php echo CHtml::image(Yii::app()->request->baseUrl . '/img/mands_logo.jpg','M&S',array('style'=>'float:right;margin:72px 20px 0 0;'));?>
+			<?php echo CHtml::image(Yii::app()->request->baseUrl . '/img/logo_left.png','Ready For Take Off',array('style'=>'width:600px;margin:20px;'));?>
 		</div>
+	</div>
 	</header>
 	<div class="container top">
 		<div class="row">

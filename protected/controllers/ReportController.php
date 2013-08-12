@@ -32,35 +32,33 @@ class ReportController extends Controller
 						'users'=>array('*'),
 				),
 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('index','onsiteAttended','onsiteGaladinner','onsiteTeamdinner',
-								'onsiteGalatable','gift','ipad','onsiteUsers','onsiteExportGalaDietary',
-								'onsiteExportTeamDietary','onsiteMeal','onsiteLibbys','onsiteExportLibbys','attendedDownload','noShowDownload'),
+						'actions'=>array('index','registation','download','nomination','transfer'),
 						'users'=>array('@'),
 						'expression' => '$user->isAdmin'
 				),
-				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('winner','travel','hotel','tours','summary','registation',
-								'housing','transfer','arrival','departure','dietary','download','teamdinner','galadinner',
-								'galatable','printers','dmc','newRegistration','declined','cancelled','amex','users','dmcdownload','traveluser',
-								'exportTeamDietary','exportGalaDietary','meal','libbys','exportLibbys','housinguser'),
-						'users'=>array('@'),
-						'expression' => '$user->isAdmin && ($user->name=="client" || $user->name=="YYO" || $user->name=="Caroline" || $user->name=="Dickie")'
-				),
-				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('transfer','arrival','departure','dmcdownload','amex','traveluser'),
-						'users'=>array('@'),
-						'expression' => '$user->isAdmin && $user->name=="Amex"'
-				),
-				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('dmc','newRegistration','declined','cancelled'),
-						'users'=>array('@'),
-						'expression' => '$user->isAdmin && $user->name=="DMC"'
-				),
-				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('dietary','teamdinner','galadinner','galatable','meal','libbys','exportLibbys','exportTeamDietary'),
-						'users'=>array('@'),
-						'expression' => '$user->isAdmin && $user->name=="NTE"'
-				),
+// 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
+// 						'actions'=>array('winner','travel','hotel','tours','summary','registation',
+// 								'housing','transfer','arrival','departure','dietary','download','teamdinner','galadinner',
+// 								'galatable','printers','dmc','newRegistration','declined','cancelled','amex','users','dmcdownload','traveluser',
+// 								'exportTeamDietary','exportGalaDietary','meal','libbys','exportLibbys','housinguser'),
+// 						'users'=>array('@'),
+// 						'expression' => '$user->isAdmin && ($user->name=="client" || $user->name=="YYO" || $user->name=="Caroline" || $user->name=="Dickie")'
+// 				),
+// 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
+// 						'actions'=>array('transfer','arrival','departure','dmcdownload','amex','traveluser'),
+// 						'users'=>array('@'),
+// 						'expression' => '$user->isAdmin && $user->name=="Amex"'
+// 				),
+// 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
+// 						'actions'=>array('dmc','newRegistration','declined','cancelled'),
+// 						'users'=>array('@'),
+// 						'expression' => '$user->isAdmin && $user->name=="DMC"'
+// 				),
+// 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
+// 						'actions'=>array('dietary','teamdinner','galadinner','galatable','meal','libbys','exportLibbys','exportTeamDietary'),
+// 						'users'=>array('@'),
+// 						'expression' => '$user->isAdmin && $user->name=="NTE"'
+// 				),
 				array('allow', // allow admin user to perform 'admin' and 'delete' actions
 						'actions'=>array('create','update','index','view','admin','delete'),
 						'users'=>array('admin'),
@@ -140,15 +138,25 @@ class ReportController extends Controller
 
 	public function actionDownload()
 	{
+		$users = User::model()->with('nomination')->findAll();
+		$attributes_string = 'id,name,display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time,created_at';
+		$attributes = explode(',',$attributes_string);
+		$data = array(
+				1 => $attributes ,
+		);
+		foreach($users as $user){
+			$tmp = array();
+			foreach($attributes as $attribute){
+				$tmp[] = CHtml::encode($user->$attribute);
+			}
+			$data[] = $tmp;
+		}
+		Yii::import('application.extensions.phpexcel.JPhpExcel');
+		$xls = new JPhpExcel('UTF-8', false, 'All User');
+		$xls->addArray($data);
+		$xls->generateXML('all_users');
+		Yii::app()->end();
 		$this->layout = '//layouts/export';
-		$filename = 'All Users';
-		$users = User::model()->with('guest')->findAll();
-		header('Content-type:application/csv;charset=utf8'); //表示输出Excel文件
-		header('Content-Disposition:attachment; filename=' . $filename . '.xls');//文件名
-		header("Content-Transfer-Encoding: binary");
-		header("Pragma: public");
-		header("Cache-Control: public");
-		$this->render('download',array('users'=>$users));
 	}
 
 	public function actionFood()
@@ -229,19 +237,12 @@ class ReportController extends Controller
 
 	public function actionRegistation($status=1)
 	{
-		$type_array = explode(',',User::model()->types);
-		foreach($type_array as $type){
-			$users[$type] = User::model()->countByAttributes(array('status'=>$status,'type'=>$type));
-			$guests[$type] = User::model()->countByAttributes(array('status'=>$status,'type'=>$type,'has_guest'=>1));
-		}
 		$accepted_number = User::model()->countByAttributes(array('status'=>1));
 		$nofeedback_number = User::model()->countByAttributes(array('status'=>0));
 		$declined_number = User::model()->countByAttributes(array('status'=>2));
 		
 		$this->render('registation',array(
 				'accepted'=>$accepted_number,'nofeedback'=>$nofeedback_number,'declined'=>$declined_number,
-				'users'=>$users,
-				'guests'=>$guests,
 				'status'=>$status,
 				));
 	}
@@ -253,7 +254,9 @@ class ReportController extends Controller
 	
 	public function actionTransfer()
 	{
-		$this->render('transfer');
+		$outbounds = User::model()->findAllBySql("select distinct(outbound_time) as outbound_time,count(1) as id from users group by outbound_time");
+		$returns = User::model()->findAllBySql("select distinct(return_time) as return_time,count(1) as id from users group by return_time");
+		$this->render('transfer',array('outbounds'=>$outbounds,'returns'=>$returns));
 	}
 	/**
 	 * fi_adate  Arrival Date Into Sydney
@@ -1016,6 +1019,24 @@ class ReportController extends Controller
 		header("Pragma: public");
 		header("Cache-Control: public");
 		$this->render('onsite_noshow_download',array('users'=>$users));
+	}
+	
+	public function actionNomination(){
+		$qualities = Nomination::model()->findAllBySql("select DISTINCT(quality) as quality,count(*) id from nominations where quality <>'' group by quality order by id desc limit 7");
+		$values = Nomination::model()->findAllBySql("select DISTINCT(value) as value,count(*) id from nominations where value <>''  group by value order by id desc limit 7");
+		$innovations = Nomination::model()->findAllBySql("select DISTINCT(innovation) as innovation,count(*) id from nominations where innovation <>''  group by innovation order by id desc limit 7");
+		$trusts = Nomination::model()->findAllBySql("select DISTINCT(trust) as trust,count(*) id from nominations where trust <>''  group by trust order by id desc limit 7");
+		$services = Nomination::model()->findAllBySql("select DISTINCT(service) as service,count(*) id from nominations where service <>''  group by service order by id desc limit 7");
+		$teams = Nomination::model()->findAllBySql("select DISTINCT(team) as team,count(*) id from nominations where team <>''  group by team order by id desc limit 7");
+		$itlt_awards = Nomination::model()->findAllBySql("select DISTINCT(itlt_award) as itlt_award,count(*) id from nominations where itlt_award <>''  group by itlt_award order by id desc limit 7");
+		$this->render('nomination',array('qualities'=>$qualities,
+				'values'=>$values,
+				'innovations'=>$innovations,
+				'trusts'=>$trusts,
+				'services'=>$services,
+				'teams'=>$teams,
+				'itlt_awards'=>$itlt_awards,
+		));
 	}
 	
 

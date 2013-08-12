@@ -70,9 +70,8 @@
   <body style="padding-bottom: 0px;">
 	<div class="jumbotron subhead customer" id="overview">
 		<div id="header">
-			<div class="l_box">
-			</div>
-			<div class="cl"></div>
+		    <?php echo CHtml::image(Yii::app()->request->baseUrl . '/img/mands_logo.jpg','M&S',array('style'=>'float:right;margin:72px 20px 0 0;'));?>
+			<?php echo CHtml::image(Yii::app()->request->baseUrl . '/img/logo_left.png','Ready For Take Off',array('style'=>'width:600px;margin:20px;'));?>
 		</div>
 	</div>
 	<div class="navbar">
@@ -80,13 +79,17 @@
 			<ul class="nav">
 				<?php $controller = Yii::app()->getController()->id;?>
 				<li<?php if($controller == 'report'){echo ' class="active"';}?>><?php echo CHtml::link('Home',array('report/index'));?></li>
-				<li<?php if($controller == 'tour'){echo ' class="active"';}?>><?php echo CHtml::link('Tour',array('tour/admin'));?></li>
+				<li<?php if($controller == 'user'){echo ' class="active"';}?>><?php echo CHtml::link('User',array('user/admin'));?></li>
 			</ul>
 		</div>
 	</div>
 	<div class="cl"></div>
-	<div class="container">
-		<?php echo $content;?>
+	<div id="body"  style="padding:40px;">
+		<div id="div_box">
+			<div class="container">
+				<?php echo $content;?>
+			</div>
+		</div>
 	</div>
 
   </body>

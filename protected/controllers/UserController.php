@@ -49,6 +49,7 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$this->layout = 'reportColumn';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -60,6 +61,7 @@ class UserController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->layout = 'reportColumn';
 		$model=new User;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -84,6 +86,7 @@ class UserController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->layout = 'reportColumn';
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -120,6 +123,7 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->layout = 'reportColumn';
 		$dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -131,6 +135,7 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout = 'reportColumn';
 		$model=new User('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['User']))

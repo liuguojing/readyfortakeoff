@@ -92,7 +92,7 @@ class User extends TrackStarActiveRecord
 		return array(
 			'id' => 'ID',
 			'status' => 'Status',
-			'name' => 'Name',
+			'name' => 'Real Name',
 			'display_name' => 'Name',
 			'job_title' => 'Job Title',
 			'department' => 'Department',
@@ -196,6 +196,9 @@ class User extends TrackStarActiveRecord
 				'19:30'=>'19:30',
 				'No return'=>'No return',
 		);
+	}
+	public function statusOptions(){
+		return array('0'=>'no feedback','1'=>'accepted','2'=>'declined');
 	}
 	
 	
