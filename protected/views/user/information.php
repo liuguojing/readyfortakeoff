@@ -91,7 +91,7 @@
 			</div>
 			
 			<div class="control-group <?php if($model->getError('twitter_account')){ echo 'error';}?>">
-				<label class="control-label" for="User_twitter_account"><?php echo $model->getAttributeLabel('twitter_account')?>:<span class="required">*</span></label>
+				<label class="control-label" for="User_twitter_account"><?php echo $model->getAttributeLabel('twitter_account')?>:</label>
 				<div class="controls">
 					<?php echo $form->textField($model,'twitter_account',array('placeholder'=>$model->getAttributeLabel('twitter_account'))); ?>
 					<?php if($model->getError('twitter_account')){?><span class="help-inline"><?php echo $model->getError('twitter_account')?></span><?php }?>

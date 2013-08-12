@@ -19,7 +19,7 @@
 			
 			<div class="control-group <?php if($model->getError('donot_question')){ echo 'error';}?>">
 				<label class="control-label" for="User_donot_question"><?php echo $model->getAttributeLabel('donot_question')?>:<span class="required">*</span></label>
-				<label>What don’t you like and what do you want us to stop doing? </label>
+				<label>What don’t you like and want us to stop doing?</label>
 				<div class="controls">
 					<?php echo $form->textarea($model,'donot_question',array('style'=>'min-width:600px;min-height:80px;')); ?>
 					<?php if($model->getError('donot_question')){?><span class="help-inline"><?php echo $model->getError('donot_question')?></span><?php }?>
