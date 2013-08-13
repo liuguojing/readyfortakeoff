@@ -7,7 +7,7 @@
 )); ?>
 	<div class="row-fluid">
 		<div class="span12">
-			<p class="alert alert-success" style="margin-top:10px;" >Keeping in line with our E-volving theme this year, we are interested to hear from you on the following to be discussed at the IT Away Day:</p>
+			<p class="label" style="margin:10px;font-size: 14px;line-height: 20px;" >Keeping in line with our E-volving theme this year, we are interested to hear from you on the following to be discussed at the IT Away Day:</p>
 			<div class="control-group <?php if($model->getError('do_question')){ echo 'error';}?>">
 				<label class="control-label" for="User_do_question"><b><?php echo $model->getAttributeLabel('do_question')?></b>:<span class="required">*</span></label>
 				<label>What <b>do</b> you want the IT Leadership Team and/or IT Group to do more of? </label>

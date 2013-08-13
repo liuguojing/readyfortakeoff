@@ -5,7 +5,7 @@
 	'enableAjaxValidation'=>false,
 	'htmlOptions'=>array('class'=>'form'),
 )); ?>
-	<p class="label" style="margin:10px;">Fields with <span class="required">*</span> are required.</p>
+	<p class="label" style="margin:10px;font-size: 14px;line-height: 20px;">Fields with <span class="required">*</span> are required.</p>
 	<div class="row-fluid">
 		<div class="span5 offset1">
 			<div class="control-group <?php if($model->getError('display_name')){ echo 'error';}?>">

@@ -51,7 +51,7 @@
 		<?php echo CHtml::link('Next',array('user/information'),array('class'=>'btn btn-large btn-success','style'=>'margin:20px;'));?>
 	</div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=en_US"></script>
 <script>
 $(function() {
 	var map;

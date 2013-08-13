@@ -139,16 +139,26 @@ class ReportController extends Controller
 	public function actionDownload()
 	{
 		$users = User::model()->with('nomination')->findAll();
-		$attributes_string = 'id,name,display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time,created_at';
+		$attributes_string = 'id,name,display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time,created_at,do_question,donot_question,develop_question';
 		$attributes = explode(',',$attributes_string);
 		$data = array(
-				1 => $attributes ,
+				1 =>array_merge( $attributes , array('quality','value','innovation','trust','service','team','ITLT Award') ),
 		);
 		foreach($users as $user){
 			$tmp = array();
 			foreach($attributes as $attribute){
 				$tmp[] = CHtml::encode($user->$attribute);
 			}
+			if(!isset($user->nomination)){
+				$user->nomination = new Nomination();
+			}
+			$tmp[] = CHtml::encode($user->nomination->quality);
+			$tmp[] = CHtml::encode($user->nomination->value);
+			$tmp[] = CHtml::encode($user->nomination->innovation);
+			$tmp[] = CHtml::encode($user->nomination->trust);
+			$tmp[] = CHtml::encode($user->nomination->service);
+			$tmp[] = CHtml::encode($user->nomination->team);
+			$tmp[] = CHtml::encode($user->nomination->itlt_award);
 			$data[] = $tmp;
 		}
 		Yii::import('application.extensions.phpexcel.JPhpExcel');
