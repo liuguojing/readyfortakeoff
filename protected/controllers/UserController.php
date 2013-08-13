@@ -177,7 +177,7 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			
-			if($_POST['User']['office']=='Merchant Square, Waterside, Stockley Park'){
+			if($_POST['User']['office']=='Stockley Park'){
 				$model->setScenario('information');
 			}else{
 				$model->setScenario('information_notime');

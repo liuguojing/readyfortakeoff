@@ -122,7 +122,7 @@
 				</div>
 			</div>
 			
-			<div id="time" class="control-group <?php if($model->office!='Merchant Square, Waterside, Stockley Park'){echo 'hide';}?> <?php if($model->getError('outbound_time')){ echo 'error';}?> <?php if($model->getError('return_time')){ echo 'error';}?>">
+			<div id="time" class="control-group <?php if($model->office!='Stockley Park'){echo 'hide';}?> <?php if($model->getError('outbound_time')){ echo 'error';}?> <?php if($model->getError('return_time')){ echo 'error';}?>">
 				<label class="control-label" for="User_outbound_time"><?php echo $model->getAttributeLabel('outbound_time')?>:<span class="required">*</span></label>
 				<div class="controls">
 					<?php echo $form->dropDownList($model,'outbound_time',$model->outboundTimeOptions(),array('empty'=>'')); ?>
@@ -149,7 +149,7 @@
 </div>
 <script>
 function showTime(){
-	if($('#User_office').val() == 'Merchant Square, Waterside, Stockley Park'){
+	if($('#User_office').val() == 'Stockley Park'){
 		$('#time').show();
 	}else{
 		$('#time').hide();
@@ -159,7 +159,7 @@ function showTime(){
 }
 $(function() {
 	$('#User_office').change(function(){
-			if($('#User_office').val() == 'Merchant Square, Waterside, Stockley Park'){
+			if($('#User_office').val() == 'Stockley Park'){
 				$('#time').show();
 			}else{
 				$('#time').hide();

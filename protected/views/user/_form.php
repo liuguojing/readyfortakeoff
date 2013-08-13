@@ -111,7 +111,7 @@
 		<?php echo $form->error($model,'office'); ?>
 	</div>
 
-	<div id="time" class="span12 <?php if($model->office!='Merchant Square, Waterside, Stockley Park'){echo 'hide';}?>">
+	<div id="time" class="span12 <?php if($model->office!='Stockley Park'){echo 'hide';}?>">
 		<?php echo $form->labelEx($model,'outbound_time'); ?>
 		<label>Outbount_time</label>
 		<?php echo $form->dropDownList($model,'outbound_time',$model->outboundTimeOptions(),array('empty'=>'')); ?>
@@ -156,7 +156,7 @@
 <script>
 $(function() {
 	$('#User_office').change(function(){
-			if($('#User_office').val() == 'Merchant Square, Waterside, Stockley Park'){
+			if($('#User_office').val() == 'Stockley Park'){
 				$('#time').show();
 			}else{
 				$('#time').hide();

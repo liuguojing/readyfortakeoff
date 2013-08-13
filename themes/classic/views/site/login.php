@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 
 <h1>Login</h1>
 
-<p class="alert span10">Please fill out the following form with your login credentials:</p>
+<p class="alert span10">Please log in using your marks-and-spencer.com email address</p>
 
 <div class="row">
 <div class="span10">

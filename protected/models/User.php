@@ -178,8 +178,10 @@ class User extends TrackStarActiveRecord
 	}
 	public function officeOptions(){
 		return array(
-				'Merchant Square, Waterside, Stockley Park'=>'Merchant Square, Waterside, Stockley Park',
-				'Eastbourne Terrace 10, London, ENGLAND W2 6LG'=>'Eastbourne Terrace 10, London, ENGLAND W2 6LG',
+				'Merchant Square'=>'Merchant Square',
+				'Waterside'=>'Waterside',
+				'Eastbourne Terrace'=>'Eastbourne Terrace',
+				'Stockley Park'=>'Stockley Park',
 		);
 	}
 	public function outboundTimeOptions(){

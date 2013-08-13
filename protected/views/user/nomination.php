@@ -11,7 +11,8 @@
 			<li>Employees will get the opportunity to vote for people they believe deserve to be recognised in five categories – Quality, Value, Innovation, Trust and Service</li>
 			<li>We will also have a team award to highlight the great work our teams do and special ITLT Award for outstanding achievement</li>
 			<li>A short list will be created and employees will vote for the winners</li>
-			<li>The winners will then be recognised during the IT Away Day with a certificate and award</li>
+			<li>The winners will then be recognised during the IT Away Day</li>
+			<li>Please nominate the person you think deserves to be recognised in each category</li>
 		</ul>
 		
 		<h2>Categories</h2>
