@@ -32,7 +32,7 @@ body {
 	background: url(../img/background.jpg) repeat-y center top;
 	width:auto;
 }
-#div_box{background:rgba(229,229,229,0.95);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#f2e5e5e5,endColorstr=#f2e5e5e5);zoom:1;}
+#div_box{background:rgba(255,255,255,0.95);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#f2ffffff,endColorstr=#f2ffffff);zoom:1;}
 :root #div_box{filter:none\9;}/*for IE9*/
 #header .l_box .a1 {
 	color: #000;
