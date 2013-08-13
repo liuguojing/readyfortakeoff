@@ -63,7 +63,7 @@
 				<?php if($model->getError('team')){?><span class="help-inline"><?php echo $model->getError('team')?></span><?php }?>
 			</div>
 		</div>
-		
+		<?php /**?>
 		<div class="control-group <?php if($model->getError('itlt_award')){ echo 'error';}?>">
 			<label class="control-label" for="User_itlt_award"><b>ITLT Award</b> – this award is for someone who has achieved outstanding results and sets continuously high standards, refuses to settle for current achievements and constantly strives to do more.</label>
 			<div class="controls">
@@ -71,6 +71,7 @@
 				<?php if($model->getError('itlt_award')){?><span class="help-inline"><?php echo $model->getError('itlt_award')?></span><?php }?>
 			</div>
 		</div>
+		<?php */?>
 		<div class="row">
 			<div class="span12" style="text-align:center;">
 					<button type="submit"  class="btn btn-large btn-success">Save & Proceed</button>
