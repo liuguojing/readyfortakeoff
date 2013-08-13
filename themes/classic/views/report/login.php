@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>M&S</title>
+    <title>M&S IT Away Day Reporting</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -46,23 +46,6 @@
 					}
 					?>
 				</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="span3">
-				<div class="">
-					<img src="<?php echo Yii::app()->request->baseUrl;?>/img/login-client.jpg" class="img">
-				</div>
-			</div>
-			<div class="span3">
-				<div class="">
-					<img src="<?php echo Yii::app()->request->baseUrl;?>/img/login-3rd.jpg" class="img">
-				</div>
-			</div>
-			<div class="span3">
-				<div class="">
-					<img src="<?php echo Yii::app()->request->baseUrl;?>/img/login-partner.jpg" class="img">
-				</div>
 			</div>
 		</div>
 		<div class="row">
