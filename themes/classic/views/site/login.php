@@ -30,7 +30,7 @@ $this->breadcrumbs=array(
 		</div>
 		<div class="control-group">
 			<div class="controls" style="">
-				<button type="submit"  class="btn btn-large btn-warning">Login</button>
+				<button type="submit"  class="btn btn-large btn-success">Login</button>
 			</div>
 		</div>
 </div>
