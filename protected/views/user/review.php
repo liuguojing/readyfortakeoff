@@ -11,7 +11,7 @@
 				<button type="submit"  class="btn btn-large btn-success">Finalize</button>
 				<?php echo $form->hiddenField($model,'status');?>
 				<?php if($model->getError('status')){?><p class="alert alert-error"><?php echo $model->getError('status')?></p><?php }?>
-				<h3><?php echo CHtml::link('Edit Information',array('user/information'))?></h3>
+				<p class="label" style="margin:10px;font-size: 16px;line-height: 20px;"><?php echo CHtml::link('Edit Information',array('user/information'),array('style'=>'color:#fff'))?></p>
 			</caption>
 			<?php 
 				$attributes = explode(',','display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time');
@@ -24,7 +24,7 @@
 		</table>
 		<table class="table  table-bordered table-hover table-condensed">
 			<caption style="text-align:center;">
-				<h3><?php echo CHtml::link('Edit Survey',array('user/survey'))?></h3>
+				<p class="label" style="margin:10px;font-size: 16px;line-height: 20px;"><?php echo CHtml::link('Edit Survey',array('user/survey'),array('style'=>'color:#fff'))?></p>
 			</caption>
 			<?php 
 				$attributes = explode(',','do_question,donot_question,develop_question');
@@ -41,7 +41,7 @@
 		?>
 		<table class="table  table-bordered table-hover table-condensed">
 			<caption style="text-align:center;">
-				<h3><?php echo CHtml::link('Edit Nomination',array('user/nomination'))?></h3>
+				<p class="label" style="margin:10px;font-size: 16px;line-height: 20px;"><?php echo CHtml::link('Edit Nomination',array('user/nomination'),array('style'=>'color:#fff'))?></p>
 			</caption>
 			<tr>
 				<td style="width:40%">Quality</td>

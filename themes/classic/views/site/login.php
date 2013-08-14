@@ -10,11 +10,9 @@ $this->breadcrumbs=array(
 ?>
 
 <h1>Login</h1>
-
-<p class="alert span10">Please log in using your marks-and-spencer.com email address</p>
-
 <div class="row">
 <div class="span10">
+<p class="label" style="margin:10px;font-size: 14px;line-height: 20px;">Please log in using your marks-and-spencer.com email address</p>
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
