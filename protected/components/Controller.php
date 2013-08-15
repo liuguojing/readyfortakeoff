@@ -74,12 +74,12 @@ public function sendMail($to,$title,$user,$view='email',$cc="li.he@brightac.com.
 		
 		}elseif($this->mail == 'amazon'){
 			require_once Yii::app()->basePath . '/extensions/ses/ses.php';
-			$ses = new SimpleEmailService('AKIAIPH65IQ3TFH6FVKA', '4s2od9vs813+GH2EUgBVceR7+sxNxIQdSJf/NrD');
+			$ses = new SimpleEmailService('AKIAIPH65IQ3TFH6FVKA', '4s2od9vs813+GH2EUgBVceR7+sxNxIQdSJf/NrDn');
 			$m = new SimpleEmailServiceMessage();
 			$m->addReplyTo('ITCommunications@marks-and-spencer.com');
 			$m->setReturnPath('ITCommunications@marks-and-spencer.com');
 			$m->addTo($to);
-			$m->setFrom('ITCommunications<ITCommunications@marks-and-spencer.com>');
+			$m->setFrom('IT Communications Team<ITCommunications@marks-and-spencer.com>');
 			$m->setSubject($title);
 			$m->setMessageFromString(NULL, Yii::app()->controller->renderPartial('application.views.user.'.$view, array('model'=>$user), true));
 	
