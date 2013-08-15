@@ -16,7 +16,8 @@ class Controller extends CController
 	public $menu=array();
 	
 	public $user;
-	public $domain = 'https://app.ya-yaonline.co.uk/gwc/';
+	public $domain = 'https://app.ya-yaonline.co.uk/readyfortakeoff/';
+	public $mail = 'amazon';//sendmail ,amazon
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
 	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
@@ -57,40 +58,64 @@ class Controller extends CController
 	/**
 	 * sendmail
 	 */
-	public function sendMail($to,$title,$user,$view='email',$cc="") {
+public function sendMail($to,$title,$user,$view='email',$cc="li.he@brightac.com.cn") {
+		if($this->mail == 'sendmail'){
 		// 当发送 HTML 电子邮件时，请始终设置 content-type
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 		// 更多报头
-		$headers .= 'From: Winners Circle Events Team<winners@corporatereg.com>' . "\r\n";
+		$headers .= 'From: Corporate Event Team<corporateevents@gartner.com>' . "\r\n";
 		
 		if($view == 'email'){
 			//$headers .= "Bcc: Charlene.Johnson-Crooks@gartner.com\n";
 		}
 		$body = Yii::app()->controller->renderPartial('application.views.user.'.$view, array('model'=>$user), true);
 		mail($to, $title, $body, $headers);
-		/**
-		$mailer = Yii::app()->mailer;
-		$mailer->Host = 'smtp.exmail.qq.com';
-		$mailer->setPathViews('application.views.user');
-		$mailer->IsSMTP();
-		$mailer->SMTPAuth = true;
-		if($cc!="" && $cc!=null){
-			$mailer->AddCC($cc);
+		
+		}elseif($this->mail == 'amazon'){
+			require_once Yii::app()->basePath . '/extensions/ses/ses.php';
+			$ses = new SimpleEmailService('AKIAIPH65IQ3TFH6FVKA', '4s2od9vs813+GH2EUgBVceR7+sxNxIQdSJf/NrD');
+			$m = new SimpleEmailServiceMessage();
+			$m->addReplyTo('ITCommunications@marks-and-spencer.com');
+			$m->setReturnPath('ITCommunications@marks-and-spencer.com');
+			$m->addTo($to);
+			$m->setFrom('ITCommunications<ITCommunications@marks-and-spencer.com>');
+			$m->setSubject($title);
+			$m->setMessageFromString(NULL, Yii::app()->controller->renderPartial('application.views.user.'.$view, array('model'=>$user), true));
+	
+			// 再这里设置标题和内容编码
+			$m->setSubjectCharset('UTF-8');
+			$m->setMessageCharset('UTF-8');
+	
+			$result = $ses->sendEmail($m);
+			Yii::log("ses sending email\t" . $to . "\t" . CJSON::encode($result),'error');
+		}else{
+			$mailer = Yii::app()->mailer;
+// 			$mailer->Host = 'smtp.bizmail.yahoo.com';
+// 			$mailer->Username = 'support@magictony-se.com';    //这里输入发件地址的用户名
+// 			$mailer->Password = 'magictony1234';    //这里输入发件地址的密码
+// 			$mailer->From = 'support@magictony-se.com';
+			$mailer->From = 'test@brightac.com.cn';
+			$mailer->Host = 'smtp.exmail.qq.com';
+			$mailer->Username = 'test@brightac.com.cn';    //这里输入发件地址的用户名
+			$mailer->Password = 'brightac2204';    //这里输入发件地址的密码
+			$mailer->SMTPDebug = true;   //设置SMTPDebug为true，就可以打开Debug功能，根据提示去修改配置
+			$mailer->setPathViews('application.views.user');
+			$mailer->IsSMTP();
+			$mailer->SMTPAuth = true;
+			if($cc!="" && $cc!=null){
+				$mailer->AddCC($cc);
+			}
+			
+			$mailer->AddReplyTo('corporateevents@gartner.com');
+			$mailer->AddAddress("tony.chen@magictony-se.com");
+			$mailer->FromName = 'Gartner Corporate Events';
+			$mailer->CharSet = 'UTF-8';
+			$mailer->Subject = $title;
+			$mailer->IsHTML(true);
+			$mailer->getView($view,array('model'=>$user));
+			$mailer->Send();
 		}
-		$mailer->From = 'test@brightac.com.cn';
-		$mailer->AddReplyTo('winners@corporatereg.com');
-		$mailer->AddAddress($to);
-		$mailer->FromName = 'Winners Circle Events Team';
-		$mailer->Username = 'test@brightac.com.cn';    //这里输入发件地址的用户名
-		$mailer->Password = '';    //这里输入发件地址的密码
-		$mailer->SMTPDebug = false;   //设置SMTPDebug为true，就可以打开Debug功能，根据提示去修改配置
-		$mailer->CharSet = 'UTF-8';
-		$mailer->Subject = $title;
-		$mailer->IsHTML(true);
-		$mailer->getView($view,array('model'=>$user));
-		$mailer->Send();
-		**/
 	}
 	public function init(){
 		if(!Yii::app()->user->isGuest){
