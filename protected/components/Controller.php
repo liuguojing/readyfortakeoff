@@ -16,7 +16,7 @@ class Controller extends CController
 	public $menu=array();
 	
 	public $user;
-	public $domain = 'https://app.ya-yaonline.co.uk/readyfortakeoff/';
+	public $domain = 'http://app.magictony-se.com/readyfortakeoff/';
 	public $mail = 'amazon';//sendmail ,amazon
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
