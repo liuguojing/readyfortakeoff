@@ -8,7 +8,7 @@
 		<h1>Review</h1>
 		<table class="table  table-bordered table-hover table-condensed">
 			<caption style="text-align:center;">
-				<button type="submit"  class="btn btn-large btn-success" style="margin-bottom:10px;">Finalize</button>
+				<button type="submit"  class="btn btn-large btn-danger" style="margin-bottom:10px;">Submit</button>
 				<?php echo $form->hiddenField($model,'status');?>
 				<?php if($model->getError('status')){?><p class="alert alert-error"><?php echo $model->getError('status')?></p><?php }?>
 				<p class="label" style="margin:0;font-size: 16px;line-height: 20px;"><?php echo CHtml::link('Edit Information',array('user/information'),array('style'=>'color:#fff'))?></p>
@@ -67,11 +67,6 @@
 				<td style="width:40%">Team</td>
 				<td><?php echo $model->nomination->team;?></td>
 			</tr>
-			<tr>
-				<td style="width:40%">Itlt Award</td>
-				<td><?php echo $model->nomination->itlt_award;?></td>
-			</tr>
-			
 		</table>
 <?php $this->endWidget(); ?>
 	</div>

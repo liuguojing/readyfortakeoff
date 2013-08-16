@@ -21,7 +21,7 @@
 		    <div id="map-canvas" style="height:400px;" class="map-container"></div>
 		  </div>
 		  <div class="modal-footer">
-		    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		  </div>
 		</div>
 		

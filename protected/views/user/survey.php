@@ -19,7 +19,7 @@
 			
 			<div class="control-group <?php if($model->getError('donot_question')){ echo 'error';}?>">
 				<label class="control-label" for="User_donot_question"><b><?php echo $model->getAttributeLabel('donot_question')?></b>:<span class="required">*</span></label>
-				<label>What <b>don’t</b> you like and want us to stop doing?</label>
+				<label>What <b>don’t</b> you like about what we currently do?</label>
 				<div class="controls">
 					<?php echo $form->textarea($model,'donot_question',array('style'=>'min-width:600px;min-height:80px;')); ?>
 					<?php if($model->getError('donot_question')){?><span class="help-inline"><?php echo $model->getError('donot_question')?></span><?php }?>
@@ -28,7 +28,7 @@
 			
 			<div class="control-group <?php if($model->getError('develop_question')){ echo 'error';}?>">
 				<label class="control-label" for="User_develop_question"><b><?php echo $model->getAttributeLabel('develop_question')?></b>:<span class="required">*</span></label>
-				<label>What should we <b>develop</b> more of?</label>
+				<label>What should we <b>develop</b> and/or do more of?</label>
 				<div class="controls">
 					<?php echo $form->textarea($model,'develop_question',array('style'=>'min-width:600px;min-height:80px;')); ?>
 					<?php if($model->getError('develop_question')){?><span class="help-inline"><?php echo $model->getError('develop_question')?></span><?php }?>
