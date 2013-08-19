@@ -7,11 +7,11 @@
 		<h1>IT Group Away Day Awards</h1>
 		<ul>
 			<li>This year at the IT Away Day we will be launching the ‘IT Awards’</li>
-			<li>The IT Awards are related directly to our M&S values and are a way of highlighting the great work our employees do within the Group and winder Business</li>
-			<li>Employees will get the opportunity to vote for people they believe deserve to be recognised in five categories – Quality, Value, Innovation, Trust and Service</li>
-			<li>We will also have a team award to highlight the great work our teams do and special ITLT Award for outstanding achievement</li>
+			<li>The IT Awards are aligned to our M&S values and are a way of highlighting the great work our employees do within the Group and wider Business</li>
+			<li>Employees will vote for people they believe deserve to be recognised in five categories – Quality, Value, Innovation, Trust and Service</li>
+			<li>We will also have a team award to highlight the great work our teams do and a special ITLT Award for <b>outstanding achievement</b></li>
 			<li>A short list will be created and employees will vote for the winners</li>
-			<li>The winners will then be recognised during the IT Away Day</li>
+			<li>The winners will be announced during the IT Away Day</li>
 			<li>Please nominate the person you think deserves to be recognised in each category</li>
 		</ul>
 		
@@ -41,7 +41,7 @@
 		</div>
 		
 		<div class="control-group <?php if($model->getError('trust')){ echo 'error';}?>">
-			<label class="control-label" for="User_trust"><b>Trust</b> – this award is for someone who has achieved outstanding results and sets continuously high standards, refuses to settle for current achievements and constantly strives to do more.</label>
+			<label class="control-label" for="User_trust"><b>Trust</b> – this award is for someone who acts with integrity and always does the right thing by others. They commit to promises demonstrating consistency between their actions and words.</label>
 			<div class="controls">
 				<?php echo $form->textField($model,'trust',array('style'=>'','data-provide'=>"typeahead", 'data-items'=>"4", 'data-source'=>"[" . rtrim($user_names,','). "]")); ?>
 				<?php if($model->getError('trust')){?><span class="help-inline"><?php echo $model->getError('trust')?></span><?php }?>
@@ -49,7 +49,7 @@
 		</div>
 		
 		<div class="control-group <?php if($model->getError('service')){ echo 'error';}?>">
-			<label class="control-label" for="User_service"><b>Service</b> – this award is for someone who has achieved outstanding results and sets continuously high standards, refuses to settle for current achievements and constantly strives to do more.</label>
+			<label class="control-label" for="User_service"><b>Service</b> – this award is for someone who goes above and beyond all expectations to deliver and exceed the expectations of their customers.</label>
 			<div class="controls">
 				<?php echo $form->textField($model,'service',array('style'=>'','data-provide'=>"typeahead", 'data-items'=>"4", 'data-source'=>"[" . rtrim($user_names,','). "]")); ?>
 				<?php if($model->getError('service')){?><span class="help-inline"><?php echo $model->getError('service')?></span><?php }?>
@@ -57,7 +57,7 @@
 		</div>
 		
 		<div class="control-group <?php if($model->getError('team')){ echo 'error';}?>">
-			<label class="control-label" for="User_team"><b>Team</b> – this award recognises a team for reaching significant goals, exceeding expectations and for delivering exceptional results.</label>
+			<label class="control-label" for="User_team"><b>Team</b> – this award recognises a team’s joint effort for reaching significant goals, exceeding expectations and for delivering exceptional results.</label>
 			<div class="controls">
 				<?php echo $form->textField($model,'team',array('style'=>'','data-provide'=>"typeahead", 'data-items'=>"4", 'data-source'=>"[" . rtrim($user_names,','). "]")); ?>
 				<?php if($model->getError('team')){?><span class="help-inline"><?php echo $model->getError('team')?></span><?php }?>
