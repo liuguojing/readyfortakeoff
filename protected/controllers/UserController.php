@@ -258,12 +258,12 @@ class UserController extends Controller
 					$model->addError('service', 'All the Nominate must in the nomination list.');
 				}
 			}
-			if(!empty($model->team)){
-				$team_user = User::model()->findByAttributes(array('name'=>$model->team));
-				if($team_user === null){
-					$model->addError('team', 'All the Nominate must in the nomination list.');
-				}
-			}
+// 			if(!empty($model->team)){
+// 				$team_user = User::model()->findByAttributes(array('name'=>$model->team));
+// 				if($team_user === null){
+// 					$model->addError('team', 'All the Nominate must in the nomination list.');
+// 				}
+// 			}
 			if(!empty($model->itlt_award)){
 				$itlt_award_user = User::model()->findByAttributes(array('name'=>$model->itlt_award));
 				if($itlt_award_user === null){

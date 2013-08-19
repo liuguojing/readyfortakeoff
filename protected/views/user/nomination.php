@@ -59,7 +59,7 @@
 		<div class="control-group <?php if($model->getError('team')){ echo 'error';}?>">
 			<label class="control-label" for="User_team"><b>Team</b> – this award recognises a team’s joint effort for reaching significant goals, exceeding expectations and for delivering exceptional results.</label>
 			<div class="controls">
-				<?php echo $form->textField($model,'team',array('style'=>'','data-provide'=>"typeahead", 'data-items'=>"4", 'data-source'=>"[" . rtrim($user_names,','). "]")); ?>
+				<?php echo $form->textField($model,'team',array('style'=>'')); ?>
 				<?php if($model->getError('team')){?><span class="help-inline"><?php echo $model->getError('team')?></span><?php }?>
 			</div>
 		</div>
