@@ -997,13 +997,13 @@ class ReportController extends Controller
 	}
 	
 	public function actionNomination(){
-		$qualities = Nomination::model()->findAllBySql("select DISTINCT(quality) as quality,count(*) id from nominations where status = 1 and quality <>'' group by quality order by id desc limit 7");
-		$values = Nomination::model()->findAllBySql("select DISTINCT(value) as value,count(*) id from nominations where status = 1 and value <>''  group by value order by id desc limit 7");
-		$innovations = Nomination::model()->findAllBySql("select DISTINCT(innovation) as innovation,count(*) id from nominations where status = 1 and innovation <>''  group by innovation order by id desc limit 7");
-		$trusts = Nomination::model()->findAllBySql("select DISTINCT(trust) as trust,count(*) id from nominations where status = 1 and trust <>''  group by trust order by id desc limit 7");
-		$services = Nomination::model()->findAllBySql("select DISTINCT(service) as service,count(*) id from nominations where status = 1 and service <>''  group by service order by id desc limit 7");
-		$teams = Nomination::model()->findAllBySql("select DISTINCT(team) as team,count(*) id from nominations where status = 1 and team <>''  group by team order by id desc limit 7");
-		$itlt_awards = Nomination::model()->findAllBySql("select DISTINCT(itlt_award) as itlt_award,count(*) id from nominations where status = 1 and itlt_award <>''  group by itlt_award order by id desc limit 7");
+		$qualities = Nomination::model()->findAllBySql("select DISTINCT(quality) as quality,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and quality <>'' group by quality order by id desc limit 7");
+		$values = Nomination::model()->findAllBySql("select DISTINCT(value) as value,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and value <>''  group by value order by id desc limit 7");
+		$innovations = Nomination::model()->findAllBySql("select DISTINCT(innovation) as innovation,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and innovation <>''  group by innovation order by id desc limit 7");
+		$trusts = Nomination::model()->findAllBySql("select DISTINCT(trust) as trust,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and trust <>''  group by trust order by id desc limit 7");
+		$services = Nomination::model()->findAllBySql("select DISTINCT(service) as service,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and service <>''  group by service order by id desc limit 7");
+		$teams = Nomination::model()->findAllBySql("select DISTINCT(team) as team,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and team <>''  group by team order by id desc limit 7");
+		$itlt_awards = Nomination::model()->findAllBySql("select DISTINCT(itlt_award) as itlt_award,count(*) id from nominations n, users u  where n.created_by = u.id and status = 1 and itlt_award <>''  group by itlt_award order by id desc limit 7");
 		$this->render('nomination',array('qualities'=>$qualities,
 				'values'=>$values,
 				'innovations'=>$innovations,
