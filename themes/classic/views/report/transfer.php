@@ -14,7 +14,7 @@
 				foreach ($outbounds as $item){?>
 			<tr>
 				<td><?php echo CHtml::encode($item->outbound_time);?></td>
-				<td><?php echo CHtml::encode($item->id);?></td>
+				<td><?php echo CHtml::link($item->id,array('report/transferDownload','type'=>'outbound','option'=>$item->outbound_time));?></td>
 			</tr>
 			<?php }?>
 			</tbody>
@@ -33,7 +33,7 @@
 				foreach ($returns as $item){?>
 			<tr>
 				<td><?php echo CHtml::encode($item->return_time);?></td>
-				<td><?php echo CHtml::encode($item->id);?></td>
+				<td><?php echo CHtml::link($item->id,array('report/transferDownload','type'=>'return','option'=>$item->return_time));?></td>
 			</tr>
 			<?php }?>
 			</tbody>

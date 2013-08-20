@@ -30,7 +30,7 @@ class UserController extends Controller
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','index','view','admin','delete'),
 				'users'=>array('@'),
-				'expression' => '$user->isAdmin && ($user->name=="Sarah-Jane" || $user->name=="Clare")'
+				'expression' => '$user->isAdmin && ($user->name=="Sarah-Jane" || $user->name=="Clare"|| $user->name=="admin")'
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('information','survey','review','vote','nomination','vote','confirmation'),

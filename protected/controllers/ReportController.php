@@ -32,7 +32,7 @@ class ReportController extends Controller
 						'users'=>array('*'),
 				),
 				array('allow', // allow authenticated user to perform 'create' and 'update' actions
-						'actions'=>array('index','registation','download','nomination','transfer'),
+						'actions'=>array('index','registation','download','nomination','transfer','transferDownload'),
 						'users'=>array('@'),
 						'expression' => '$user->isAdmin'
 				),
@@ -139,7 +139,7 @@ class ReportController extends Controller
 	public function actionDownload()
 	{
 		$users = User::model()->with('nomination')->findAll();
-		$attributes_string = 'id,name,display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time,created_at,do_question,donot_question,develop_question';
+		$attributes_string = 'id,status,name,display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time,created_at,do_question,donot_question,develop_question';
 		$attributes = explode(',',$attributes_string);
 		$data = array(
 				1 =>array_merge( $attributes , array('quality','value','innovation','trust','service','team','ITLT Award') ),
@@ -168,77 +168,42 @@ class ReportController extends Controller
 		Yii::app()->end();
 		$this->layout = '//layouts/export';
 	}
-
-	public function actionFood()
-	{
-		$this->render('food');
-	}
-
-	public function actionGaladinner()
-	{
-		$cirteria = new CDbCriteria;
-		$cirteria->addCondition("team_dinner is not null and t.type <>'Crew' and  t.status = 1 ");
-		$cirteria->order = 'team_dinner asc';
-		$users = User::model()->findAll($cirteria);
-		$cirteria = new CDbCriteria;
-		$cirteria->addCondition('t.gala_dinner_menu is not null and user.team_dinner is not null and user.status = 1 and user.has_guest = 1');
-		$cirteria->order = 'user.team_dinner asc';
-		$guests = Guest::model()->with('user')->findAll($cirteria);
-		$this->render('galadinner',array('users'=>$users,'guests'=>$guests));
-	}
 	
-	/**
-	 * 非标准时间的，只管hotel_venue == 0的。 hotel_venue == 1 的不管标准日期以外的
-	 * 
-	 */
-	public function actionHousing()
-	{
-		set_time_limit(0);
-		$users = User::model()->findAllByAttributes(array('status'=>1),array('order'=>'type,hotel_type'));
-		
-		$dateArr = array();
-		$typeResult = array();
-		$totalResult = array();
-		foreach($users as $user){
-			$from_date = $user->hotel_arrival_date;
-			$end_date = $user->hotel_departure_date;
-			
-			//如果是非标准时间
-			if($user->hotel_venue == 'I will be making my own arrangements'){
-				if(in_array($user->type,array('Top Achievers','Eagles','Operating Committee'))){
-					$from_date = 'Apr/16/2013';
-				}else{
-					$from_date = 'Apr/17/2013';
-				}
-				$end_date = "Apr/21/2013";
-			}
-			
-			$from_date =  $this->strtodate($from_date);
-			$end_date =  $this->strtodate($end_date);
-			
-			$tmpDate = $from_date;
-			while($tmpDate < $end_date ){
-				if(!in_array($tmpDate,$dateArr)){
-					$dateArr[]=$tmpDate;
-				}
-				if(isset($typeResult[$user->type][$user->hotel_type][$tmpDate])){
-					$typeResult[$user->type][$user->hotel_type][$tmpDate]++;
-				}else{
-					$typeResult[$user->type][$user->hotel_type][$tmpDate] = 1;
-				}
-				
-				if(isset($totalResult[$user->hotel_type][$tmpDate])){
-					$totalResult[$user->hotel_type][$tmpDate]++;
-				}else{
-					$totalResult[$user->hotel_type][$tmpDate] = 1;
-				}
-				$tmpDate = date('Y-m-d',strtotime($tmpDate)+3600*24);
-			}
+	public function actionTransferDownload($type="",$option=""){
+		if($type == 'outbound'){
+			$users = User::model()->with('nomination')->findAll("outbound_time=:outbound_time and status = 1",array(':outbound_time'=>$option));
+		}elseif($type =='return'){
+			$users = User::model()->with('nomination')->findAll("return_time=:return_time and status = 1",array(':return_time'=>$option));
 		}
-		sort($dateArr);
-		$this->render('housing',array('dates'=>$dateArr,'typeResult'=>$typeResult,'totalResult'=>$totalResult,'blocks'=>User::model()->getBlockRoom(),
-										'attritonRates'=>User::model()->getAttritonRates(),'sellRates'=>User::model()->getSellRates()));
+		$attributes_string = 'id,status,name,display_name,job_title,department,employee_number,telephone,mobile_telephone,personal_or_business_number,emergency_contact_name,emergency_contact_telephone_number,email,twitter_account,special_requirements,specific_medical_conditions,office,outbound_time,return_time,created_at,do_question,donot_question,develop_question';
+		$attributes = explode(',',$attributes_string);
+		$data = array(
+				1 =>array_merge( $attributes , array('quality','value','innovation','trust','service','team','ITLT Award') ),
+		);
+		foreach($users as $user){
+			$tmp = array();
+			foreach($attributes as $attribute){
+				$tmp[] = CHtml::encode($user->$attribute);
+			}
+			if(!isset($user->nomination)){
+				$user->nomination = new Nomination();
+			}
+			$tmp[] = CHtml::encode($user->nomination->quality);
+			$tmp[] = CHtml::encode($user->nomination->value);
+			$tmp[] = CHtml::encode($user->nomination->innovation);
+			$tmp[] = CHtml::encode($user->nomination->trust);
+			$tmp[] = CHtml::encode($user->nomination->service);
+			$tmp[] = CHtml::encode($user->nomination->team);
+			$tmp[] = CHtml::encode($user->nomination->itlt_award);
+			$data[] = $tmp;
+		}
+		Yii::import('application.extensions.phpexcel.JPhpExcel');
+		$xls = new JPhpExcel('UTF-8', false, 'All User');
+		$xls->addArray($data);
+		$xls->generateXML('transfer_users');
+		Yii::app()->end();
 	}
+
 
 	public function actionIndex()
 	{
@@ -264,8 +229,8 @@ class ReportController extends Controller
 	
 	public function actionTransfer()
 	{
-		$outbounds = User::model()->findAllBySql("select distinct(outbound_time) as outbound_time,count(1) as id from users group by outbound_time");
-		$returns = User::model()->findAllBySql("select distinct(return_time) as return_time,count(1) as id from users group by return_time");
+		$outbounds = User::model()->findAllBySql("select distinct(outbound_time) as outbound_time,count(1) as id from users where status=1 group by outbound_time");
+		$returns = User::model()->findAllBySql("select distinct(return_time) as return_time,count(1) as id from users where status=1 group by return_time");
 		$this->render('transfer',array('outbounds'=>$outbounds,'returns'=>$returns));
 	}
 	/**
@@ -1032,13 +997,13 @@ class ReportController extends Controller
 	}
 	
 	public function actionNomination(){
-		$qualities = Nomination::model()->findAllBySql("select DISTINCT(quality) as quality,count(*) id from nominations where quality <>'' group by quality order by id desc limit 7");
-		$values = Nomination::model()->findAllBySql("select DISTINCT(value) as value,count(*) id from nominations where value <>''  group by value order by id desc limit 7");
-		$innovations = Nomination::model()->findAllBySql("select DISTINCT(innovation) as innovation,count(*) id from nominations where innovation <>''  group by innovation order by id desc limit 7");
-		$trusts = Nomination::model()->findAllBySql("select DISTINCT(trust) as trust,count(*) id from nominations where trust <>''  group by trust order by id desc limit 7");
-		$services = Nomination::model()->findAllBySql("select DISTINCT(service) as service,count(*) id from nominations where service <>''  group by service order by id desc limit 7");
-		$teams = Nomination::model()->findAllBySql("select DISTINCT(team) as team,count(*) id from nominations where team <>''  group by team order by id desc limit 7");
-		$itlt_awards = Nomination::model()->findAllBySql("select DISTINCT(itlt_award) as itlt_award,count(*) id from nominations where itlt_award <>''  group by itlt_award order by id desc limit 7");
+		$qualities = Nomination::model()->findAllBySql("select DISTINCT(quality) as quality,count(*) id from nominations where status = 1 and quality <>'' group by quality order by id desc limit 7");
+		$values = Nomination::model()->findAllBySql("select DISTINCT(value) as value,count(*) id from nominations where status = 1 and value <>''  group by value order by id desc limit 7");
+		$innovations = Nomination::model()->findAllBySql("select DISTINCT(innovation) as innovation,count(*) id from nominations where status = 1 and innovation <>''  group by innovation order by id desc limit 7");
+		$trusts = Nomination::model()->findAllBySql("select DISTINCT(trust) as trust,count(*) id from nominations where status = 1 and trust <>''  group by trust order by id desc limit 7");
+		$services = Nomination::model()->findAllBySql("select DISTINCT(service) as service,count(*) id from nominations where status = 1 and service <>''  group by service order by id desc limit 7");
+		$teams = Nomination::model()->findAllBySql("select DISTINCT(team) as team,count(*) id from nominations where status = 1 and team <>''  group by team order by id desc limit 7");
+		$itlt_awards = Nomination::model()->findAllBySql("select DISTINCT(itlt_award) as itlt_award,count(*) id from nominations where status = 1 and itlt_award <>''  group by itlt_award order by id desc limit 7");
 		$this->render('nomination',array('qualities'=>$qualities,
 				'values'=>$values,
 				'innovations'=>$innovations,

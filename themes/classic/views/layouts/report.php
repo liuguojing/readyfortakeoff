@@ -79,7 +79,7 @@
 			<ul class="nav">
 				<?php $controller = Yii::app()->getController()->id;?>
 				<li<?php if($controller == 'report'){echo ' class="active"';}?>><?php echo CHtml::link('Home',array('report/index'));?></li>
-				<?php if(!Yii::app()->user->isGuest && (Yii::app()->user->name=='Sarah-Jane' || Yii::app()->user->name=='Clare')){?>
+				<?php if(!Yii::app()->user->isGuest && (Yii::app()->user->name=='Sarah-Jane' || Yii::app()->user->name=='Clare' || Yii::app()->user->name=='admin')){?>
 				<li<?php if($controller == 'user'){echo ' class="active"';}?>><?php echo CHtml::link('User',array('user/admin'));?></li>
 				<?php }?>
 			</ul>
